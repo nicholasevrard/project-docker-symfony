@@ -5,10 +5,10 @@ networks:
 volumes:
   symfony_db:
 
-service:
+services:
   apache
     container_nam: project_g2r_apache
-    builde: ./docker/build-apache
+    builde: ./docker/build/apache
     ports:
       - '8000:80'
       - '8443:443'
@@ -17,7 +17,7 @@ service:
       - mailpit
     volumes:
       - './docker/etc/apache/virtualhost.conf:/etc/apache2/sites-enabled/000-default.conf:ro'
-      - './docker/etc/apache/default-ssl.conf:/etc/apache2/sites-enable/default-ssl.conf'
+      - './docker/etc/apache/default-ssl.conf:/etc/apache2/sites-enabled/default-ssl.conf'
       - './docker/etc/php/php.ini:/usr/local/etc/php/php.ini'
       - './docker/etc/php/php-cli.ini:/usr/local/etc/php/php-cli.ini'
       - './docker/etc/apache/ssl/:/etc/apache2/conf/ssl'
@@ -30,7 +30,7 @@ service:
     ports:
       - "3306:3306"
     volumes:
-      - './docker/etc/mysql/my2.cnf:/etc/mysql/conf.d/my.cnf'
+      - './docker/etc/mysql/my.cnf:/etc/mysql/conf.d/my.cnf'
       - 'symfony_db:/var/lib/mysql:cached'
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -41,7 +41,7 @@ service:
   phpmyadmin:
     container_name: project_g2r_phpmyadmin
     ports:
-      '8001:80'
+      - '8001:80'
     image: nazarpc/phpmyadmin
     networks:
       - symfony
@@ -55,7 +55,7 @@ service:
       - "1025-1025"
       - "8025:8025"
     environment:
-      MP_SMTP_AUTH_ACCEPT_ANY=- 1
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
     networks:
       - symfony
