@@ -1,4 +1,4 @@
-FRONT php:8.2-apache
+FROM php:8.2-apache
 
 ARG TIMEZONE="Europe/Paris"
 ENV ACCEPT_EULA=Y
@@ -26,7 +26,7 @@ RUN apt-get update && apt-get install -y \
     gnupg2 \
     unixodbc-dev \
     freetds-dev \
-    &&$ apt-get update && apt-get install -y \
+    && apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_mysql opcache \
     && docker-php-ext-enable opcache
 

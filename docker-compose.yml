@@ -6,9 +6,9 @@ volumes:
   symfony_db:
 
 services:
-  apache
-    container_nam: project_g2r_apache
-    builde: ./docker/build/apache
+  apache:
+    container_name: project_g2r_apache
+    build: ./docker/build/apache
     ports:
       - '8000:80'
       - '8443:443'
@@ -52,7 +52,7 @@ services:
     image: axllent/mailpit
     container_name: project_g2r_mailpit
     ports:
-      - "1025-1025"
+      - "1025:1025"
       - "8025:8025"
     environment:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
